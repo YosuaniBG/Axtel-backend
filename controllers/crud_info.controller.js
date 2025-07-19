@@ -12,7 +12,7 @@ const saveNormalizedSales = async (req, res) => {
     await createTableIfNotExists();
     await insertNormalizedSales(sales);
 
-    res.json({ message: "Ventas normalizadas guardadas correctamente." });
+    res.json({ message: "Success" });
   } catch (error) {
     console.error("Error al guardar ventas normalizadas:", error);
     res.status(500).json({ error: "Error al guardar los datos en la base de datos." });
@@ -22,7 +22,7 @@ const saveNormalizedSales = async (req, res) => {
 const getNormalizedSales = async (req, res) => {
   try {
     const sales = await getAllNormalizedSales();
-    res.json({ data: sales });
+    res.json({ message: "Success", data: sales });
   } catch (error) {
     console.error("Error al obtener datos:", error);
     res.status(500).json({ error: "Error al obtener datos de la base de datos." });
@@ -32,7 +32,7 @@ const getNormalizedSales = async (req, res) => {
 const getSalesSummary = async (req, res) => {
   try {
     const summary = await getSalesSummaryByCountry();
-    res.json({ resumen: summary });
+    res.json({ message: "Success", data: summary });
   } catch (error) {
     console.error("Error al obtener resumen:", error);
     res.status(500).json({ error: "Error al generar resumen de ventas por país." });

@@ -20,8 +20,7 @@ const uploadCSV = async (req, res) => {
         results.push(data); // cada fila del CSV
       })
       .on("end", () => {
-        console.log("Contenido del CSV:", results); // Imprime todo en consola
-        res.json({ message: "Archivo procesado correctamente", data: results });
+        res.json({ message: "Success", data: results });
       })
       .on("error", (err) => {
         console.error("Error al procesar el CSV:", err);
@@ -71,11 +70,11 @@ const normalizeSales = async (req, res) => {
         ...sale,
         Monto_Normalizado: parseFloat(normalizedAmount.toFixed(2)),
         Moneda_Normalizada: targetCurrency,
-        Tasa_De_Cambio: parseFloat(conversionRate.toFixed(6)),
+        Tasa_De_Cambio: parseFloat(rates[originalCurrency].toFixed(6)),
       };
     });
 
-    res.json({ ventas: normalizedSales });
+    res.json({ message: "Success", data: normalizedSales });
   } catch (error) {
     console.error("Error en normalizeSales:", error.message);
     res.status(500).json({ error: error.message || "Error interno del servidor." });
